@@ -11,8 +11,17 @@ use Auth;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 
-class TicketController
+class TicketController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getTickets(){
         $tickets =  Ticket::select('id','title', 'description','due_date','status')->get();
         return view('tickets.list', compact('tickets'));

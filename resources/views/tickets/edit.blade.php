@@ -67,30 +67,37 @@
 <body>
 
 
-    <div class="content">
-        <div class="title m-b-md">
-         create ticket
-        </div>
+<div class="content">
+    <div class="title m-b-md">
+        create ticket
     </div>
-    <form method="POST" action="{{route('tickets.store')}}">
-        @csrf
-        <div class="form-group">
-            <label for="exampleInputTitle">Titel</label>
-            <input type="text" name="title" class="form-control" id="exampleInputTitle" placeholder="Enter Title">
-            @error('title')
-            <small class="form-text text-danger"><strong>{{ $message }}</strong></small>
-            @enderror
-        </div>
-        <div class="form-group">
-            <label for="exampleInputDescription">Beschreibung</label>
-            <input type="text" name="description" class="form-control" id="exampleInputDescription" placeholder="Description">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputDescription">Erledigt bis</label>
-            <input type="datetime-local" name="due_date" class="form-control" id="exampleInputDescription" placeholder="Date">
-        </div>
-        <button type="submit" class="btn btn-primary">Ticket erstellen</button>
-    </form>
+</div>
+<form method="POST" action="{{route('tickets.editStore',$ticket->id)}}">
+    @csrf
+    <div class="form-group">
+        <label for="exampleInputTitle">Titel</label>
+        <input type="text" name="title" class="form-control" id="exampleInputTitle" value="{{$ticket->title}}">
+        @error('title')
+        <small class="form-text text-danger"><strong>{{ $message }}</strong></small>
+        @enderror
+    </div>
+    <div class="form-group">
+        <label for="exampleInputDescription">Beschreibung</label>
+        <input type="text" name="description" class="form-control" value="{{$ticket->description}}">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputDescription">Erledigt bis</label>
+        <input type="datetime" name="due_date" class="form-control"  value="{{$ticket->due_date}}">
+    </div>
+    <div class="form-group">
+        <select class="form-control" name="status">
+            @foreach(['Aufgabe','bearbeiten','Beenden'] AS $status)
+                <option value="{{ $status }}" {{ old("selectStatus", $ticket->status) == $status ? "selected" : "" }}>{{ $status }}</option>
+            @endforeach
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+</form>
 
 </body>
 </html>

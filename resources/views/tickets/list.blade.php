@@ -17,8 +17,9 @@
                     <tr>
                         <th scope="col">Title</th>
                         <th scope="col">Beschreibung</th>
-                        <th scope="col">Datum</th>
+                        <th scope="col">Erledingt bis</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Autor</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,10 +27,12 @@
                     <tr>
                         <th scope="row">{{$ticket->title}}</th>
                         <td>{{$ticket->description}}</td>
-                        <td>{{$ticket->date}}</td>
+                        <td>{{\Carbon\Carbon::parse($ticket->due_date)->format('d-m-Y') }}</td>
                         <td>{{$ticket->status}}</td>
-                        <td><button type="button" class="btn btn-primary">Bearbeiten</button></td>
-                        <td><button type="button" class="btn btn-primary">Zuweisen</button></td>
+                        <td>{{Auth::user()->name}}</td>
+                        <td><a href="{{url('tickets/edit/'.$ticket -> id)}}" class="btn btn-success">Bearbeiten</a></td>
+                        <td><a href="{{url('tickets/assigned/'.$ticket->id)}}" class="btn btn-success">Zuweisen</a></td>
+                        <td><a href="{{route('tickets.delete',$ticket->id)}}" class="btn btn-danger">Löschen</a></td>
                     </tr>
                     @endforeach
                     </tbody>

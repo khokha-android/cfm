@@ -14,7 +14,16 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{route('tickets.create')}}">Ticket erstellen</a>
+                            </li>
+                        </ul>
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{route('tickets.list')}}">Liste der Tickets</a>
+                            </li>
+                        </ul>
                 </div>
             </div>
         </div>
